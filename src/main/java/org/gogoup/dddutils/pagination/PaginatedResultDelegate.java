@@ -32,11 +32,12 @@ public interface PaginatedResultDelegate<T> {
     /**
      * Returns next page cursor based on the giving current page cursor.
      * 
-     * @param methodName String
+     * @param tag String
      * @param arguments Object[]
      * @param pageCursor Object
+     * @param result TODO
      * @return Object - returns the first page cursor, if the giving current page cursor is null.
      */
-    public Object getNextPageCursor(String methodName, Object[] arguments, Object pageCursor);
+    public Object getNextPageCursor(String tag, Object[] arguments, Object pageCursor, T result);
     
 }

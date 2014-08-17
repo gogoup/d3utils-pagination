@@ -21,6 +21,7 @@ public abstract class PaginatedResult<T> {
     private String tag;
     private Object[] arguments;
     private Object currentPageCursor;
+    private T result;
 
     public PaginatedResult(PaginatedResultDelegate<T> delegate, String tag, Object[] arguments) {
         this.tag = tag;
@@ -33,7 +34,7 @@ public abstract class PaginatedResult<T> {
     }
     
     public T getResult(Object pageCursor) {
-        T result = delegate.fetchResult(tag, arguments, pageCursor);
+        result = delegate.fetchResult(tag, arguments, pageCursor);
         setCurrentPageCursor(pageCursor);
         return result;
     }
@@ -48,7 +49,7 @@ public abstract class PaginatedResult<T> {
     
     public Object getNextPageCursor() {
         checkForNullDelegate();
-        return delegate.getNextPageCursor(tag, arguments, getCurrentPageCursor());
+        return delegate.getNextPageCursor(tag, arguments, getCurrentPageCursor(), result);
     }
     
     private void checkForNullDelegate() {
