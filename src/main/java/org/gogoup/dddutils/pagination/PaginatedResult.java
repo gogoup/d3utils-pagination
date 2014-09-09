@@ -49,6 +49,9 @@ public abstract class PaginatedResult<T> {
     
     public Object getNextPageCursor() {
         checkForNullDelegate();
+        if (null == getCurrentPageCursor()) {
+            return delegate.getFirstPageCursor(tag, arguments);
+        }
         return delegate.getNextPageCursor(tag, arguments, getCurrentPageCursor(), result);
     }
     
