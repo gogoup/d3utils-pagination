@@ -33,7 +33,18 @@ public abstract class PaginatedResult<T> {
         return getResult(null);
     }
     
+    /**
+     * Retrieve the result at the giving page cursor.
+     * 
+     * Returns the first page of result, if the giving page cursor is null.
+     * 
+     * @param pageCursor Object
+     * @return T
+     */
     public T getResult(Object pageCursor) {
+        if (null == pageCursor) {
+            pageCursor = delegate.getFirstPageCursor(tag, arguments);
+        }
         result = delegate.fetchResult(tag, arguments, pageCursor);
         setCurrentPageCursor(pageCursor);
         return result;
@@ -47,6 +58,15 @@ public abstract class PaginatedResult<T> {
         return currentPageCursor;
     }
     
+    /**
+     * Retrieves the next page cursor.
+     * 
+     * Returns the first page cursor, if the current page cursor is null.
+     * 
+     * Returns null value, if there no page of results to go.
+     * 
+     * @return Object
+     */
     public Object getNextPageCursor() {
         checkForNullDelegate();
         if (null == getCurrentPageCursor()) {
