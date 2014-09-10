@@ -16,6 +16,8 @@
 package org.gogoup.dddutils.pagination;
 
 public abstract class PaginatedResult<T> {
+    
+    public static final Object NONE_PAGE_CURSOR = null;
 
     private PaginatedResultDelegate<T> delegate;
     private String tag;
@@ -29,8 +31,15 @@ public abstract class PaginatedResult<T> {
         this.delegate = delegate;
     }
     
+    public boolean isGetAllResultsSupported() {
+        return delegate.isFetchAllResultsSupported(tag, arguments);
+    }
+    
     public T getAllResults() {
-        return getResult(null);
+        if (!isGetAllResultsSupported()) {
+            throw new UnsupportedOperationException("Get all results for \'" + tag + "\' is not supported.");
+        }
+        return delegate.fetchAllResults(tag, arguments);
     }
     
     /**
@@ -42,9 +51,8 @@ public abstract class PaginatedResult<T> {
      * @return T
      */
     public T getResult(Object pageCursor) {
-        if (null == pageCursor) {
-            pageCursor = delegate.getFirstPageCursor(tag, arguments);
-        }
+        checkForNoPage(pageCursor);
+        checkForNullDelegate();
         result = delegate.fetchResult(tag, arguments, pageCursor);
         setCurrentPageCursor(pageCursor);
         return result;
@@ -58,6 +66,10 @@ public abstract class PaginatedResult<T> {
         return currentPageCursor;
     }
     
+    public Object getFirstPageCursor() {
+        return delegate.getFirstPageCursor(tag, arguments);
+    }
+    
     /**
      * Retrieves the next page cursor.
      * 
@@ -69,9 +81,6 @@ public abstract class PaginatedResult<T> {
      */
     public Object getNextPageCursor() {
         checkForNullDelegate();
-        if (null == getCurrentPageCursor()) {
-            return delegate.getFirstPageCursor(tag, arguments);
-        }
         return delegate.getNextPageCursor(tag, arguments, getCurrentPageCursor(), result);
     }
     
@@ -79,6 +88,13 @@ public abstract class PaginatedResult<T> {
         if (null == delegate) {
             throw new NullPointerException("Need assign a delegate, "
                     + "" + PaginatedResultDelegate.class.getName() + " to this result first.");
+        }
+    }
+    
+    private void checkForNoPage(Object pageCursor) {
+        if (NONE_PAGE_CURSOR == pageCursor) {
+            throw new IllegalArgumentException(
+                    "Cannot set page cursor to null which is reserved as NONE_PAGE_CURSOR");
         }
     }
         

@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.gogoup</groupId>
   <artifactId>dddutils-pagination</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   
   <name>GoGoUp domain-driven design utilities pagination.</name>
   <description>A simple Java tool that allow you implement a polluteless paging solution to you domain models.</description>

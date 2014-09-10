@@ -29,6 +29,10 @@ public interface PaginatedResultDelegate<T> {
      */
     public T fetchResult(String tag, Object[] arguments, Object pageCursor);
     
+    public boolean isFetchAllResultsSupported(String tag, Object[] arguments);
+    
+    public T fetchAllResults(String tag, Object[] arguments);
+    
     /**
      * Returns next page cursor based on the giving current page cursor.
      * 
