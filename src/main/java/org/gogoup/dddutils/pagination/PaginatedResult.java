@@ -15,7 +15,7 @@
  */
 package org.gogoup.dddutils.pagination;
 
-public abstract class PaginatedResult<T> {
+public class PaginatedResult<T> {
     
     public static final Object NONE_PAGE_CURSOR = null;
 
