@@ -44,6 +44,8 @@ public interface PaginatedResultDelegate<T> {
      */
     public Object getNextPageCursor(String tag, Object[] arguments, Object pageCursor, T result);
     
+    public Object getPrevPageCursor(String tag, Object[] arguments, Object pageCursor, T result);
+    
     public Object getFirstPageCursor(String tag, Object[] arguments);
     
 }

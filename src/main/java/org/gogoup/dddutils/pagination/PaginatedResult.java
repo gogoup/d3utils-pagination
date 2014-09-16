@@ -29,6 +29,7 @@ public class PaginatedResult<T> {
         this.tag = tag;
         this.arguments = arguments;
         this.delegate = delegate;
+        this.currentPageCursor = NONE_PAGE_CURSOR;
     }
     
     public boolean isGetAllResultsSupported() {
@@ -51,7 +52,7 @@ public class PaginatedResult<T> {
      * @return T
      */
     public T getResult(Object pageCursor) {
-        checkForNoPage(pageCursor);
+        checkForNoPageCursor(pageCursor);
         checkForNullDelegate();
         result = delegate.fetchResult(tag, arguments, pageCursor);
         setCurrentPageCursor(pageCursor);
@@ -81,7 +82,14 @@ public class PaginatedResult<T> {
      */
     public Object getNextPageCursor() {
         checkForNullDelegate();
+        checkForNoPageCursor(getCurrentPageCursor());
         return delegate.getNextPageCursor(tag, arguments, getCurrentPageCursor(), result);
+    }
+    
+    public Object getPrevPageCursor() {
+        checkForNullDelegate();
+        checkForNoPageCursor(getCurrentPageCursor());
+        return delegate.getPrevPageCursor(tag, arguments, getCurrentPageCursor(), result);
     }
     
     private void checkForNullDelegate() {
@@ -91,10 +99,10 @@ public class PaginatedResult<T> {
         }
     }
     
-    private void checkForNoPage(Object pageCursor) {
+    private void checkForNoPageCursor(Object pageCursor) {
         if (NONE_PAGE_CURSOR == pageCursor) {
             throw new IllegalArgumentException(
-                    "Cannot set page cursor to null which is reserved as NONE_PAGE_CURSOR");
+                    "Page cursor shouldn't be NONE_PAGE_CURSOR");
         }
     }
         
