@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.gogoup</groupId>
-  <artifactId>dddutils-pagination</artifactId>
+  <artifactId>d3utils-pagination</artifactId>
   <version>1.1.1</version>
   
-  <name>GoGoUp domain-driven design utilities pagination.</name>
-  <description>A simple Java tool that allow you implement a polluteless paging solution to you domain models.</description>
-  <url>https://github.com/gogoup/dddutils-pagination</url>
+  <name>Domain-driven design utilities - pagination.</name>
+  <description>d3utils-pagination is a simple Java tool which enables easy implementation of polluteless paging function.</description>
+  <url>https://github.com/gogoup/d3utils-pagination</url>
   
   <licenses>
     <license>
@@ -16,4 +16,25 @@
     </license>
   </licenses>
   
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+                <source>1.7</source>
+                <target>1.7</target>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>external.atlassian.jgitflow</groupId>
+            <artifactId>jgitflow-maven-plugin</artifactId>
+            <version>1.0-m4.3</version>
+            <configuration>
+                <noDeploy>true</noDeploy>
+            </configuration>
+        </plugin>
+    </plugins>
+  </build>
 </project>
