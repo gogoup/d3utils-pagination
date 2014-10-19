@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.gogoup</groupId>
   <artifactId>d3utils-pagination</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.1-SNAPSHOT</version>
   
   <name>Domain-driven design utilities - pagination.</name>
   <description>d3utils-pagination is a simple Java tool which enables easy implementation of polluteless paging function.</description>
